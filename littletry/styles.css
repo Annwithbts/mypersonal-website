@@ -1,0 +1,379 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('./fonts/PressStart2P-Regular.ttf') format('truetype');
+  font-display: swap; /* 确保在字体未加载时显示备用字体 */
+}
+:root {
+  --color-red: #ec1840;
+  --color-purple: #7a18ec;
+  --color-white: #fff;
+  --color-black-1: #111;
+  --color-black-2: #222;
+  --color-black-3: #444;
+  --speed-normal: 0.5s;
+  --speed-fast: 0.8s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 200vh; /* 确保有足够的滚动空间 */
+  overflow-x: hidden;
+  perspective: 1px;
+  background-color: #a47cab; /* 设置背景颜色 */
+  font-family: 'Press Start 2P', sans-serif;
+}
+
+nav {
+  background-color: #333;
+  padding: 0.5rem;
+}
+
+.nav-bar {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0;
+  }
+
+.nav-bar li {
+  margin: 0 15px;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-bar a:hover {
+  color: #ff9800;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-bar {
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #444;
+  }
+
+  .nav-bar li {
+    margin: 10px 0;
+  }
+}
+
+.landscape {
+  position: relative;
+  height: 70vh; /* 调整高度为屏幕的80% */
+  width: 70vw; /* 调整宽度为屏幕的80% */
+  overflow: hidden;
+  transform-style: preserve-3d; /* 保持3D变换 */
+  margin: 40px auto; /* 居中 */
+  background-color: #a47cab; /* 设置背景颜色 */
+}
+
+.landscape__layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  transform: translateZ(0); /* 初始化3D变换 */
+}
+
+.landscape__layer img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#fallingGirl {
+  position: absolute; /* 确保父元素有相对定位 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: float 1.5s ease-in-out infinite; /* 调整漂浮动画速度 */
+}
+
+#fallingGirl img {
+  width: 50vw; /* 调整少女图像大小 */
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 2vh 3vh rgba(255, 255, 255, 0.8)); /* 添加发光效果 */
+}
+
+/* 黑屏动画 */
+/* 黑屏动画 */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 加载动画 */
+#app.hidden {
+  display: none; /* 默认隐藏 */
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  position: fixed; /* 动态设置 top */
+}
+
+.loading {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: calc(100vw * 0.05); /* 字体大小调整 */
+  color: #ffffff;
+  text-transform: uppercase;
+  padding: 1.2em;
+  position: relative;
+  text-align: center; /* 确保文字居中对齐 */
+  margin-bottom: 20vw; /* 增加文字与进度条或底部的间距 */
+}
+
+.loading::after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 50%; /* 设置进度条宽度 */
+  margin: 0 auto; /* 居中对齐 */
+  background-color: #ffffff;
+  position: absolute;
+  bottom: -20px; /* 进度条距离文字的垂直间距 */
+  animation: line 3s ease-in-out infinite;
+}
+
+.loading span {
+  display: inline-block;
+  animation: char 3s ease-in-out infinite;
+  font-size: 4rem; /* 设置字体大小 */
+  filter: contrast(300%) brightness(50%); /* 马赛克风格 */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+/* 为每个字母添加延时 */
+.loading span:nth-child(1) { animation-delay: 0s; }
+.loading span:nth-child(2) { animation-delay: 0.1s; }
+.loading span:nth-child(3) { animation-delay: 0.2s; }
+.loading span:nth-child(4) { animation-delay: 0.3s; }
+.loading span:nth-child(5) { animation-delay: 0.4s; }
+.loading span:nth-child(6) { animation-delay: 0.5s; }
+.loading span:nth-child(7) { animation-delay: 0.6s; }
+
+@keyframes line {
+  0% { right: 100%; left: 0%; opacity: 0.1; }
+  50% { right: 0%; left: 0%; opacity: 1; }
+  100% { left: 100%; right: 0%; opacity: 0.1; }
+}
+
+@keyframes char {
+  0% { transform: translateY(1.8em); opacity: 0; }
+  25%, 50% { transform: none; opacity: 1; }
+  75%, 100% { transform: translateY(-1.8em); opacity: 0; }
+}
+
+@keyframes fall {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(100vh);
+  }
+}
+/* 长页面定义 */
+.long-page {
+  position: relative;
+  height: 300vh; /* 定义长页面的高度，300%视窗高度 */
+  background-color: #a47cab; /* 背景颜色与原来一致 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 垂直排列内容 */
+  opacity: 1;
+  transition: opacity 2s ease-in-out; /* 添加淡入效果 */
+}
+
+.long-page.hidden {
+  opacity: 0; /* 隐藏状态 */
+}
+
+/* 长页面中的文字样式 */
+.long-page p {
+  font-size: 2rem; /* 字体大小 */
+  color: #ffffff; /* 字体颜色 */
+  text-align: center; /* 居中对齐 */
+}
+/* 长页面淡入效果 */
+.water-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65vw; /* 宽度为屏幕宽度的70% */
+  height: 50vh; /* 高度为屏幕高度的50% */
+  background: url('image/Water.png') repeat; /* 设置背景图像并重复 */
+  background-size: 40px 40px; /* 使背景图像按原始大小重复 */
+  overflow: hidden; /* 防止小人跑出容器 */
+}
+
+.character {
+  position: absolute;
+  left: 50%; /* 居中 */
+  top: 50%; /* 居中 */
+  transform: translate(-50%, -50%) scale(5);
+  width: 16px; /* 小人帧宽度 */
+  height: 16px; /* 小人帧高度 */
+  background: url('image/Character.png') no-repeat;
+  background-size: 128px 128px; /* 精灵图的整体尺寸 */
+  animation: walk-down 0.5s steps(3) infinite; /* 默认向下动画 */
+}
+
+@keyframes walk-down {
+  from { background-position: -48px -40px; }
+  to { background-position: -48px -104px; }
+}
+
+@keyframes walk-up {
+  from { background-position: 0px -40px; }
+  to { background-position: 0px -104px; }
+}
+
+@keyframes walk-right {
+  from { background-position: -32px -40px; }
+  to { background-position: -32px -104px; }
+}
+
+@keyframes walk-left {
+  from { background-position: -96px -40px; }
+  to { background-position: -96px -104px; }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-2vh);
+  }
+}
+
+#triggerButton {
+  position: absolute;
+  right: 2vw; /* 适应屏幕宽度的定位 */
+  top: 2vh; /* 适应屏幕高度的定位 */
+  width: 18vw; /* 响应式宽度 */
+  height: 8vh; /* 响应式高度 */
+  margin: 1vw; /* 动态间距 */
+  line-height: 7vh; /* 设置行高，确保文字垂直居中 */
+  letter-spacing: 0.1em; /* 调整字母间距 */
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-white);
+  font-family: 'Press Start 2P', sans-serif; /* 使用像素字体 */
+  font-size: 1.2vw; /* 动态调整字体大小 */
+  transition: var(--speed-normal);
+  border: 0.3vw solid var(--color-red); /* 边框宽度响应式 */
+  z-index: 1000; /* 确保按钮在最上层 */
+  background-color: transparent; /* 透明背景 */
+  display: flex; /* 使用 flex 布局 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+}
+
+#triggerButton:hover {
+  color: violet; /* 鼠标悬停时颜色变化 */
+  background-color: var(--color-black-2); /* 添加悬停效果 */
+  cursor: pointer;
+}
+#triggerButton:hover {
+  border: 1px solid transparent;
+  background: var(--color-red) url(https://i.postimg.cc/wBXGXbWN/pixel.png); /* 360px x 1080px */
+  transition-delay: 0.8s;
+  background-size: 180px;
+  animation: animate var(--speed-fast) steps(8) forwards;
+}
+
+#triggerButton:last-of-type {
+  border: 1px solid var(--color-purple);
+}
+
+#triggerButton:last-of-type:hover {
+  background: var(--color-purple) url(https://i.postimg.cc/FzBWFtKM/pixel2.png); /* 360px x 1080px */
+}
+
+@keyframes animate {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: -480px;
+  }
+}
+
+#content {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+#content.hidden {
+  display: none;
+}
+
+#content:not(.hidden) {
+  opacity: 1;
+}
+#overlay.active {
+  opacity: 0; /* 黑色渐淡出 */
+  pointer-events: none;
+  transition: opacity 1.5s ease-in-out
+}
+
+#falling-character {
+  position: absolute !important;
+  left: 50% !important;
+  top: 0 !important;
+  transform: translateX(-50%) scale(5) !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: url('./image/Character.png') no-repeat !important;
+  background-size: 128px 128px !important;
+  animation: walk-down 0.5s steps(3) infinite !important;
+}

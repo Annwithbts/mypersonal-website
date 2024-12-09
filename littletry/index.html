@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navigation Bar</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <nav>
+    <ul class="nav-bar">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <div class="landscape">
+    <a href="javascript:void(0);" id="triggerButton">Trigger Fall</a>
+    <div class="landscape__layer" id="layer1"><img src="image/Clouds1/1.png" alt="Background Layer"> </div>
+    <div class="landscape__layer" id="layer2"><img src="image/Clouds1/2.png" alt="Cloud Layer 1"></div>
+    <div class="landscape__layer" id="layer3"><img src="image/Clouds1/3.png" alt="Cloud Layer 2"></div>
+    <div class="landscape__layer" id="layer4"><img src="image/Clouds1/4.png" alt="Cloud Layer 3"></div>
+    <div class="landscape__layer" id="fallingGirl">
+      <img src="image/FallingGirl.png" alt="Falling Girl">
+    </div>
+  </div>
+
+
+  <div id="overlay"></div> <!-- 添加黑色覆盖层 -->
+
+  <!-- Loading Animation -->
+  <div id="app" class="hidden">
+    <p class="loading">
+      <span>l</span>
+      <span>o</span>
+      <span>a</span>
+      <span>d</span>
+      <span>i</span>
+      <span>n</span>
+      <span>g</span>
+    </p>
+  </div>
+
+  <div class="long-page hidden">
+    <p>Welcome to the magical long page!</p>
+    <div id="falling-character"></div>
+  </div>
+
+   <!-- Long Scrolling Page
+   <div id="long-page" class="long-page">
+    <div class="floating-clouds">
+      <img src="image/cloud.png" alt="Floating Cloud">
+      <img src="image/cloud-small.png" alt="Floating Cloud">
+      <img src="image/cloud-small.png" alt="Floating Cloud">
+    </div>
+  </div>
+
+  Night Scene with Puzzle Layers
+  <div id="night-scene" class="night-scene">
+    <div class="puzzle-layer" id="layer1"></div>
+    <div class="puzzle-layer" id="layer2"></div>
+    <div class="puzzle-layer" id="layer3"></div>
+    <div class="puzzle-layer" id="layer4"></div>
+  </div> -->
+
+
+  <div class="water-container">
+    <div class="character"></div>
+  <script src="script.js"></script>
+</body>
+</html>
